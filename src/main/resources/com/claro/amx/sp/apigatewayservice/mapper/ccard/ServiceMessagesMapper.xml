@@ -1,0 +1,22 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.claro.amx.sp.apigatewayservice.mapper.ccard.ServiceMessagesMapper">
+
+    <resultMap id="map_GetServiceMessagesResult" type="com.claro.amx.sp.apigatewayservice.model.ccard.ServiceMessages">
+        <result property="level" column="SSM_LEVEL"/>
+        <result property="service" column="SSM_DISPLAY_NAME"/>
+        <result property="message" column="SSM_MESSAGE"/>
+    </resultMap>
+
+    <select id="getServiceMessagesData" resultMap="map_GetServiceMessagesResult">
+        SELECT SSM_LEVEL,
+        SSM_DISPLAY_NAME,
+        SSM_MESSAGE
+        FROM SP_SERVICE_MESSAGES
+        WHERE SSM_ENDPOINT = #{path}
+        AND SSM_CODE = #{code}
+        AND SYSDATE BETWEEN SSM_START_DATE AND SSM_END_DATE
+    </select>
+
+</mapper>
